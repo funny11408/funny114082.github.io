@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>悦读 | Minimalist Reader</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600&family=Nunito:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <!-- Bmob SDK -->
+    <script src="https://unpkg.com/hydrogen-js-sdk/dist/Bmob-2.2.5.min.js"></script>
+    <!-- PDF.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script>
+        window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    </script>
+</head>
+
+<body>
+
+    <!-- Top Navigation -->
+    <header class="app-header">
+        <div class="logo">悦读</div>
+        <nav class="top-nav">
+            <button class="nav-btn active" data-target="bookstore-view">书城</button>
+            <button class="nav-btn" data-target="blog-view">博客</button>
+        </nav>
+    </header>
+
+    <main class="app-container">
+
+        <!-- Bookstore View (Home) -->
+        <section id="bookstore-view" class="view active">
+            <div class="bookstore-hero">
+                <h1>静心阅读，回归文字</h1>
+                <p>您的私人数字图书馆</p>
+            </div>
+
+            <div class="library-container">
+                <h2>书架</h2>
+                <div class="book-grid" id="book-grid">
+                    <!-- Upload Card -->
+                    <div class="book-card upload-card" id="upload-card">
+                        <div class="card-icon">+</div>
+                        <div class="card-title">导入书籍</div>
+                        <div class="card-meta">支持 .txt / .pdf</div>
+                    </div>
+
+                    <!-- Dynamic books will be added here -->
+                </div>
+            </div>
+
+            <!-- Hidden File Input -->
+            <input type="file" id="file-input" accept=".txt,.pdf" hidden>
+        </section>
+
+        <!-- Blog View -->
+        <section id="blog-view" class="view hidden">
+            <div class="blog-container">
+                <div class="blog-header">
+                    <h2>我的阅读博客</h2>
+                    <button id="new-post-btn" class="btn-primary">写博文</button>
+                </div>
+
+                <!-- Editor (Hidden by default) -->
+                <div id="blog-editor" class="blog-editor hidden">
+                    <input type="text" id="post-title-input" placeholder="输入标题...">
+                    <textarea id="post-content-input" placeholder="写下您的感悟..."></textarea>
+                    <div class="editor-actions">
+                        <button id="cancel-post-btn" class="btn-secondary">取消</button>
+                        <button id="save-post-btn" class="btn-primary">发布</button>
+                    </div>
+                </div>
+
+                <div id="blog-feed" class="blog-feed">
+                    <!-- Posts go here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Reader View -->
+        <section id="reader-view" class="view hidden">
+            <!-- Sidebar -->
+            <aside id="sidebar" class="sidebar">
+                <div class="sidebar-header">
+                    <h3>目录</h3>
+                    <button id="close-sidebar-btn" class="icon-btn">×</button>
+                </div>
+                <div id="toc-list" class="toc-list"></div>
+            </aside>
+
+            <nav class="reader-nav">
+                <div class="nav-left">
+                    <button id="back-home-btn" class="icon-btn">←</button>
+                    <button id="toggle-sidebar-btn" class="icon-btn">☰</button>
+                </div>
+                <div class="book-title" id="nav-book-title">阅读中</div>
+                <div class="nav-right">
+                    <!-- <button class="icon-btn">A</button> Settings placeholder -->
+                </div>
+            </nav>
+
+            <div id="reader-content" class="reader-content">
+                <div class="placeholder-text">正在加载...</div>
+            </div>
+
+            <div class="reader-footer">
+                <button id="save-progress-btn" class="btn-secondary"
+                    style="margin-right: 1rem; padding: 2px 8px; font-size: 0.8rem;">保存进度</button>
+                <span id="progress-info">0%</span>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
